@@ -1,8 +1,7 @@
-import { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { Body } from '../components/layout'
 import { ITATable } from '../components/organisms'
-import { getHouses } from '../store/houses.slice'
+import { urls } from '../constants'
+import useFetch from '../hooks/useFetch'
 import { Container } from '../styles'
 
 const columns = [
@@ -36,18 +35,21 @@ const columns = [
 ]
 
 function Data() {
-  const [currentPage, setCurrentPage] = useState(1)
-  const { data } = useSelector((state) => state.houses)
-  const dispatch = useDispatch()
+  // const [currentPage, setCurrentPage] = useState(1)
+  // const { data } = useSelector((state) => state.houses)
+  // const dispatch = useDispatch()
 
-  useEffect(() => {
-    dispatch(getHouses(currentPage))
-  }, [currentPage, dispatch])
+  // useEffect(() => {
+  //   dispatch(getHouses(currentPage))
+  // }, [currentPage, dispatch])
+  const { loading, error, data, isSuccess } = useFetch(urls.houses)
 
   return (
     <Body>
-      <Container style={{ marginTop: '2rem' }}>
-        <ITATable columns={columns} data={data} />
+      <Container>
+        {loading && <div>Loading...</div>}
+        {isSuccess && <ITATable columns={columns} data={data} />}
+        {error && <div>Error</div>}
       </Container>
     </Body>
   )
