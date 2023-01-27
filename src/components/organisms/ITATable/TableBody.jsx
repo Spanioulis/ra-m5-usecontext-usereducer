@@ -9,17 +9,19 @@ function TableBody() {
   return (
     <tbody>
       {data &&
-        data.slice((currentPage - 1) * 10, itemsPage * currentPage).map((d) => (
-          <tr key={d.id}>
-            {columns
-              .filter((col) => !col.isHidden)
-              .map((col) => (
-                <TableCell key={`${d.id}-${col.id}`}>
-                  {col.cell ? col.cell(d) : d[col.id]}
-                </TableCell>
-              ))}
-          </tr>
-        ))}
+        data
+          .slice((currentPage - 1) * itemsPage, itemsPage * currentPage)
+          .map((d) => (
+            <tr key={d.id}>
+              {columns
+                .filter((col) => !col.isHidden)
+                .map((col) => (
+                  <TableCell key={`${d.id}-${col.id}`}>
+                    {col.cell ? col.cell(d) : d[col.id]}
+                  </TableCell>
+                ))}
+            </tr>
+          ))}
     </tbody>
   )
 }

@@ -33,7 +33,12 @@ function Download() {
 
   return (
     <FlexBox align="end" justify="row">
-      <CSVLink data={data} headers={columns} filename="houses-list.csv">
+      <CSVLink
+        data={data}
+        headers={columns}
+        filename="houses-list.csv"
+        target="_blank"
+      >
         <ButtonStyled>
           <FlexBox direction="row" align="center">
             <IconStyled icon="download" />
