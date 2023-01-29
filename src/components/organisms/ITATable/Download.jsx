@@ -1,5 +1,5 @@
 /* eslint-disable import/named */
-import { CSVLink } from 'react-csv'
+import { CSVLink } from 'react-csv' // No utilices CSVLink o librerias, crea tu propia función para pasar los datos a .csv
 import { useContext } from 'react'
 import styled from 'styled-components'
 import { colors, FlexBox } from '../../../styles'
