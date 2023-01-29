@@ -42,11 +42,14 @@ function Data() {
   // useEffect(() => {
   //   dispatch(getHouses(currentPage))
   // }, [currentPage, dispatch])
+
+  // Usa los datos de redux y transformalos para que se usen adecuadamente en las tablas
   const { loading, error, data, isSuccess } = useFetch(urls.houses)
 
   return (
     <Body>
       <Container>
+        {/* El loading pasalo como parametro a la tabla, y preferiblemente muestra una vacia con shimmers mientras carga */}
         {loading && <div>Loading...</div>}
         {isSuccess && <ITATable columns={columns} data={data} />}
         {error && <div>Error</div>}
