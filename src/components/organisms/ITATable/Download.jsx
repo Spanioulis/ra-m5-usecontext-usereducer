@@ -1,5 +1,4 @@
 /* eslint-disable import/named */
-import { CSVLink } from 'react-csv'
 import { useContext } from 'react'
 import styled from 'styled-components'
 import { colors, FlexBox } from '../../../styles'
@@ -23,29 +22,24 @@ function Download() {
   const { state } = useContext(TableContext)
   const { data } = state
 
-  const columns = [
-    { label: 'Distrito', key: 'district' },
-    { label: 'Ciudad', key: 'city' },
-    { label: 'Nombre', key: 'title' },
-    { label: 'Precio', key: 'price' },
-    { label: 'Descripción', key: 'type' },
-  ]
+  const downloadFileCSV = () => {
+    const blob = new Blob([JSON.stringify(data)], { type: 'text/csv' })
+    const url = URL.createObjectURL(blob)
+    const link = document.createElement('a')
+    link.href = url
+    link.setAttribute('download', 'yourfilename.csv')
+    document.body.appendChild(link)
+    link.click()
+  }
 
   return (
     <FlexBox align="end" justify="row">
-      <CSVLink
-        data={data}
-        headers={columns}
-        filename="houses-list.csv"
-        target="_blank"
-      >
-        <ButtonStyled>
-          <FlexBox direction="row" align="center">
-            <IconStyled icon="download" />
-            <TextStyled color={colors.clearBlueBg}>Descargar</TextStyled>
-          </FlexBox>
-        </ButtonStyled>
-      </CSVLink>
+      <ButtonStyled onClick={downloadFileCSV} id="download">
+        <FlexBox direction="row" align="center">
+          <IconStyled icon="download" />
+          <TextStyled color={colors.clearBlueBg}>Descargar</TextStyled>
+        </FlexBox>
+      </ButtonStyled>
     </FlexBox>
   )
 }

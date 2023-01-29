@@ -28,10 +28,12 @@ const IconStyled = styled(Icon)`
 
 function TablePagination() {
   const { state, dispatch } = useContext(TableContext)
-  const { currentPage } = state
+  const { currentPage, itemsPage, data } = state
+
+  const totalPages = Math.ceil(data?.length / itemsPage)
 
   const forwardPage = () => {
-    if (currentPage < 50) {
+    if (currentPage < totalPages) {
       dispatch({ type: 'SET_CURRENTPAGE', payload: currentPage + 1 })
     }
   }

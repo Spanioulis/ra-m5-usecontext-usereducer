@@ -35,21 +35,12 @@ const columns = [
 ]
 
 function Data() {
-  // const [currentPage, setCurrentPage] = useState(1)
-  // const { data } = useSelector((state) => state.houses)
-  // const dispatch = useDispatch()
-
-  // useEffect(() => {
-  //   dispatch(getHouses(currentPage))
-  // }, [currentPage, dispatch])
-  const { loading, error, data, isSuccess } = useFetch(urls.houses)
+  const { loading, data } = useFetch(urls.houses)
 
   return (
     <Body>
       <Container>
-        {loading && <div>Loading...</div>}
-        {isSuccess && <ITATable columns={columns} data={data} />}
-        {error && <div>Error</div>}
+        <ITATable columns={columns} data={data} loading={loading} />
       </Container>
     </Body>
   )

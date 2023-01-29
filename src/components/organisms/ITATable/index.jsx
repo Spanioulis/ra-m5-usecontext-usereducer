@@ -1,15 +1,16 @@
 import { useEffect, useContext } from 'react'
-import Download from './Download'
 import TableProvider, { TableContext } from './store/context'
+import Download from './Download'
 import { Actions } from './store/reducer'
 import TableBody from './TableBody'
 import TableHeader from './TableHeader'
+import TableSkeleton from './TableSkeleton'
 import TablePagination from './TablePagination'
 import { FlexBox } from '../../../styles'
 import { TableStyled } from './styles'
 
 // eslint-disable-next-line react/prop-types
-function Table({ columns, data, showHeader = true }) {
+function Table({ columns, data, showHeader = true, loading }) {
   const { dispatch } = useContext(TableContext)
 
   useEffect(() => {
@@ -20,10 +21,16 @@ function Table({ columns, data, showHeader = true }) {
   return (
     <FlexBox>
       <Download />
-      <TableStyled>
-        {showHeader && <TableHeader />}
-        <TableBody />
-      </TableStyled>
+      {loading ? (
+        <TableStyled>
+          <TableSkeleton />
+        </TableStyled>
+      ) : (
+        <TableStyled>
+          {showHeader && <TableHeader />}
+          <TableBody />
+        </TableStyled>
+      )}
       <TablePagination />
     </FlexBox>
   )
