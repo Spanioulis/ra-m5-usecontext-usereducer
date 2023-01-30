@@ -25,13 +25,20 @@ const columns = [
     id: 'type',
     label: 'Descripción',
   },
-  // {
-  //   id: 'age',
-  //   label: 'Edad',
-  //   cell: (row) => (
-  //     <span style={{ color: row.age > 50 ? 'green' : 'red' }}>{row.age}</span>
-  //   ),
-  // },
+  // cell: (row) => (
+  //   <span
+  //     style={{
+  //       color:
+  //         row.average < 185000
+  //           ? 'green'
+  //           : row.average > 500000
+  //           ? 'red'
+  //           : 'gray',
+  //     }}
+  //   >
+  //     {row.age}
+  //   </span>
+  // ),
 ]
 
 function Data() {

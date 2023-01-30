@@ -1,7 +1,7 @@
 import { useEffect, useContext } from 'react'
 import TableProvider, { TableContext } from './store/context'
-import Download from './Download'
 import { Actions } from './store/reducer'
+import { Barrios, Download, Viviendas } from './molecules'
 import TableBody from './TableBody'
 import TableHeader from './TableHeader'
 import TableSkeleton from './TableSkeleton'
@@ -20,7 +20,11 @@ function Table({ columns, data, showHeader = true, loading }) {
 
   return (
     <FlexBox>
-      <Download />
+      <FlexBox direction="row" justify="flex-end">
+        <Viviendas />
+        <Barrios />
+        <Download />
+      </FlexBox>
       {loading ? (
         <TableStyled>
           <TableSkeleton />

@@ -1,21 +1,21 @@
 /* eslint-disable import/named */
 import { useContext } from 'react'
 import styled from 'styled-components'
-import { colors, FlexBox } from '../../../styles'
-import { Button, Icon, Text } from '../../atoms'
-import { TableContext } from './store/context'
+import { colors, FlexBox } from '../../../../styles'
+import { Button, Icon, Text } from '../../../atoms'
+import { TableContext } from '../store/context'
 
 const ButtonStyled = styled(Button)`
   background-color: green;
   width: 150px;
-  margin: 1rem;
+  margin: 0.7rem;
 `
 
 const IconStyled = styled(Icon)`
   color: ${colors.clearBlueBg};
 `
 const TextStyled = styled(Text)`
-  margin: 0.5rem;
+  margin: 0.1rem 0.5rem;
 `
 
 function Download() {
@@ -33,14 +33,12 @@ function Download() {
   }
 
   return (
-    <FlexBox align="end" justify="row">
-      <ButtonStyled onClick={downloadFileCSV} id="download">
-        <FlexBox direction="row" align="center">
-          <IconStyled icon="download" />
-          <TextStyled color={colors.clearBlueBg}>Descargar</TextStyled>
-        </FlexBox>
-      </ButtonStyled>
-    </FlexBox>
+    <ButtonStyled onClick={downloadFileCSV} id="download">
+      <FlexBox direction="row" justify="center">
+        <IconStyled icon="download" />
+        <TextStyled color={colors.clearBlueBg}>Descargar</TextStyled>
+      </FlexBox>
+    </ButtonStyled>
   )
 }
 

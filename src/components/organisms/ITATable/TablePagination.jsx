@@ -13,24 +13,25 @@ const ContainerStyled = styled(Container)`
 `
 const ButtonStyled = styled.button`
   background-color: none;
-  color: white;
   border: 0;
-  padding: 1rem;
+  margin: 0.2rem;
+  width: 50px;
+  height: 48px;
+`
 
+const IconStyled = styled(Icon)`
+  color: grey;
   &:hover {
     cursor: pointer;
   }
 `
 
-const IconStyled = styled(Icon)`
-  color: grey;
-`
-
 function TablePagination() {
   const { state, dispatch } = useContext(TableContext)
-  const { currentPage, itemsPage, data } = state
+  const { currentPage, itemsPage, data, dataDistrict } = state
 
   const totalPages = Math.ceil(data?.length / itemsPage)
+  // const totalPagesDistrict = Math.ceil(dataDistrict?.length / itemsPage)
 
   const forwardPage = () => {
     if (currentPage < totalPages) {
@@ -56,13 +57,17 @@ function TablePagination() {
     <ContainerStyled direction="row" justify="center">
       <FlexBox direction="row">
         <ButtonStyled type="button" onClick={backPage}>
-          <IconStyled icon="arrow_back_ios" />
+          {currentPage === 1 ? '' : <IconStyled icon="arrow_back_ios" />}
         </ButtonStyled>
         <Text>
           Página <b>{currentPage}</b> de 50
         </Text>
         <ButtonStyled type="button" onClick={forwardPage}>
-          <IconStyled icon="arrow_forward_ios" />
+          {currentPage < totalPages ? (
+            <IconStyled icon="arrow_forward_ios" />
+          ) : (
+            ''
+          )}
         </ButtonStyled>
       </FlexBox>
       <FlexBox direction="row" justify="flex-end" align="center">
