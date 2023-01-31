@@ -8,6 +8,8 @@ const columns = [
   {
     id: 'title',
     label: 'Nombre',
+    // Aquí deberías de crear un parametro para indicar programaticamente que columnas quieres que se ordenen del tipo:
+    // isSortable: true
   },
   {
     id: 'price',
