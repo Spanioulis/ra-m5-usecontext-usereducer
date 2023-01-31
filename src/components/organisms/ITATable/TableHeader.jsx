@@ -15,9 +15,24 @@ const IconStyled = styled(Icon)`
 
 function TableHeader() {
   const { state, dispatch } = useContext(TableContext)
-  const { columns, columnsDistrict, data, district, sort } = state
+  const { columns, columnsDistrict, data, dataDistrict, district, sort } = state
 
   function handleSort(value) {
+    if (district) {
+      if (sort) {
+        const sortList = [...dataDistrict].sort((a, b) =>
+          a[value] < b[value] ? 1 : -1,
+        )
+        dispatch({ type: 'SET_SORT', payload: !sort })
+        dispatch({ type: 'SET_DATADISTRICT', payload: sortList })
+      } else {
+        const sortList = [...dataDistrict].sort((a, b) =>
+          a[value] > b[value] ? 1 : -1,
+        )
+        dispatch({ type: 'SET_SORT', payload: !sort })
+        dispatch({ type: 'SET_DATADISTRICT', payload: sortList })
+      }
+    }
     if (sort) {
       const sortList = [...data].sort((a, b) => (a[value] < b[value] ? 1 : -1))
       dispatch({ type: 'SET_SORT', payload: !sort })

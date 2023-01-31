@@ -20,12 +20,12 @@ const ButtonStyled = styled(Button)`
 function Viviendas() {
   const { dispatch } = useContext(TableContext)
 
-  function filterViviendas() {
+  function visualHousing() {
     dispatch({ type: 'SET_DISTRICT', payload: false })
   }
 
   return (
-    <ButtonStyled onClick={filterViviendas} id="download">
+    <ButtonStyled onClick={visualHousing} id="download">
       Viviendas
     </ButtonStyled>
   )

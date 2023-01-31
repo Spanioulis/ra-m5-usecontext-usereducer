@@ -40,13 +40,42 @@ function Barrios() {
     },
   ]
 
-  function filterBarrio() {
-    const average = data.reduce((acc, curr) => acc + curr.price, 0)
-    const sortList = data.map((item) => {
+  function visualNeighborhoods() {
+    const barceloneta = data.filter((d) => d.district === 'Barceloneta')
+    const gotic = data.filter((d) => d.district === 'Gotic')
+    const totalGotic = gotic.reduce(
+      (acc, curr) => {
+        return {
+          price: acc.price + curr.price,
+          number: acc.number + 1,
+          district: curr.district,
+          // type: [acc.type + curr.type],
+          type: [...acc.type, [curr.type]],
+        }
+      },
+      { price: 0, number: 0, district: '', type: [] },
+    )
+    const totalBarceloneta = barceloneta.reduce(
+      (acc, curr) => {
+        return {
+          price: acc.price + curr.price,
+          number: acc.number + 1,
+          district: curr.district,
+          type: [...acc.type, [curr.type]],
+        }
+      },
+      { price: 0, number: 0, district: '', type: [] },
+    )
+
+    let LIST = [...[totalGotic], ...[totalBarceloneta]]
+
+    const sortList = LIST.map((item, index) => {
+      console.log('item', item.type[6])
       return {
         ...item,
-        average_price: Math.ceil(average / data.length),
-        number: 15,
+        average_price: Math.ceil(item.price / item.number),
+        number: item.number,
+        type: item.type,
       }
     })
     dispatch({ type: 'SET_DATADISTRICT', payload: sortList })
@@ -55,7 +84,7 @@ function Barrios() {
   }
 
   return (
-    <ButtonStyled onClick={filterBarrio} id="download">
+    <ButtonStyled onClick={visualNeighborhoods} id="download">
       Barrios
     </ButtonStyled>
   )
