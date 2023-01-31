@@ -17,6 +17,7 @@ function TableHeader() {
   const { state, dispatch } = useContext(TableContext)
   const { columns, columnsDistrict, data, dataDistrict, district, sort } = state
 
+  // El handleSort (la lógica de debajo) debería de estar en el reducer
   function handleSort(value) {
     if (district) {
       if (sort) {
