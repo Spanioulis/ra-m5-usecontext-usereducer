@@ -1,26 +1,29 @@
 import { createNextState } from '@reduxjs/toolkit'
 
 export const initialState = {
-  data: [],
   columns: [],
-  currentPage: 1,
-  itemsPage: 10,
-  sort: false,
-  district: false,
-  dataDistrict: [],
   columnsDistrict: [],
+  currentPage: 1,
+  data: [],
+  dataDistrict: [],
+  district: false,
+  itemsPage: 10,
+  sortTitle: null,
+  sortDirection: false,
 }
 
 export const Actions = {
-  SET_DATA: 'SET_DATA',
   SET_COLUMNS: 'SET_COLUMNS',
+  SET_COLUMNSDISTRICT: 'SET_COLUMNSDISTRICT',
   SET_CURRENTPAGE: 'SET_CURRENTPAGE',
+  SET_DATA: 'SET_DATA',
+  SET_DATADISTRICT: 'SET_DATADISTRICT',
+  SET_DISTRICT: 'SET_DISTRICT',
+  SET_HOUSES: 'SET_HOUSES',
   SET_ITEMSPAGE: 'SET_ITEMSPAGE',
   SET_SORT: 'SET_SORT',
-  SET_HOUSES: 'SET_HOUSES',
-  SET_DISTRICT: 'SET_DISTRICT',
-  SET_DATADISTRICT: 'SET_DATADISTRICT',
-  SET_COLUMNSDISTRICT: 'SET_COLUMNSDISTRICT',
+  SET_SORT_TITLE: 'SET_SORT_TITLE',
+  SET_SORTDIRECTION: 'SET_SORTDIRECTION',
 }
 
 // eslint-disable-next-line default-param-last
@@ -46,11 +49,6 @@ export const tableReducer = (state = initialState, action) => {
         draft.itemsPage = action.payload
       })
 
-    case Actions.SET_SORT:
-      return createNextState(state, (draft) => {
-        draft.sort = action.payload
-      })
-
     case Actions.SET_DISTRICT:
       return createNextState(state, (draft) => {
         draft.district = action.payload
@@ -64,6 +62,39 @@ export const tableReducer = (state = initialState, action) => {
     case Actions.SET_COLUMNSDISTRICT:
       return createNextState(state, (draft) => {
         draft.columnsDistrict = action.payload
+      })
+
+    case Actions.SET_SORT_TITLE:
+      return createNextState(state, (draft) => {
+        draft.sortTitle = action.payload
+      })
+
+    case Actions.SET_SORTDIRECTION:
+      return createNextState(state, (draft) => {
+        draft.sortDirection = action.payload
+      })
+
+    case Actions.SET_SORT:
+      const { data } = state
+      const { columnId, sortTitle, sortDirection } = action.payload
+      console.log('sortTitle', sortTitle)
+      console.log('sortDirection', sortDirection)
+
+      const dataArray = Object.values(data)
+      const sortedData = dataArray.sort((a, b) => {
+        if (sortDirection === true) {
+          return a[sortTitle] < b[sortTitle] ? 1 : -1
+        }
+        if (sortDirection === false) {
+          return a[sortTitle] > b[sortTitle] ? 1 : -1
+        }
+        return 0
+      })
+
+      return createNextState(state, (draft) => {
+        draft.data = sortedData
+        draft.sortTitle = columnId
+        draft.sortDirection = sortDirection
       })
 
     default:
